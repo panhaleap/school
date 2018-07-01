@@ -1,0 +1,22 @@
+{
+  "name": "school",
+  "version": "1.0.0",
+  "description": "Student, Subject, Teacher. it's about student information on each subjects",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/panhaleap/school.git"
+  },
+  "author": "diana",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/panhaleap/school/issues"
+  },
+  "homepage": "https://github.com/panhaleap/school#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
