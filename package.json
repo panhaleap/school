@@ -2,9 +2,11 @@
   "name": "school",
   "version": "1.0.0",
   "description": "Student, Subject, Teacher. it's about student information on each subjects",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prestart": "babel src --out-dir build --source-maps",
+    "dev": "babel-node src/index --ext js",
+    "start": "nodemon",
+    "debug": "DEBUG=express:* & babel-node src/index --ext js"
   },
   "repository": {
     "type": "git",
@@ -17,8 +19,13 @@
   },
   "homepage": "https://github.com/panhaleap/school#readme",
   "dependencies": {
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
     "body-parser": "^1.18.3",
+    "debug": "^3.1.0",
     "express": "^4.16.3",
-    "mongoose": "^5.1.7"
+    "joi": "^13.4.0",
+    "mongoose": "^5.1.7",
+    "morgan": "^1.9.0"
   }
 }
