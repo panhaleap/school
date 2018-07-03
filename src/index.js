@@ -11,7 +11,7 @@ import teacherRoute from './api/teacher/teacher.route';
 import scoreRoute from './api/score/score.route';
 
 const app = expresses();
-const port = process.env.port || 8181;
+const port = process.env.port || 8080;
 
 mongoose.connect(CONNECTION);
 

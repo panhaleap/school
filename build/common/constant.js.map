@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../src/common/constant.js"],"names":["ENDPOINT","CONNECTION"],"mappings":";;;;;AAAO,MAAMA,8BAAW,SAAjB;AACA,MAAMC,kCAAa,sDAAnB","file":"constant.js","sourcesContent":["export const ENDPOINT = '/api/v1';\r\nexport const CONNECTION = 'mongodb://panha:123abcD@ds163850.mlab.com:63850/bear';\r\n"]}

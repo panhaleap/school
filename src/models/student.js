@@ -1,5 +1,9 @@
 import mongoose from 'mongoose';
+
 const Schema = mongoose.Schema;
+
+var Score = new Schema({ score: Number, subject: [{ type: Schema.Types.ObjectId, ref: 'Subject' }] });
+
 
 const studentSchema = new Schema(
   {
@@ -7,7 +11,8 @@ const studentSchema = new Schema(
     lastName: String,
     age: { type: Number, required: true },
     gender: String,
-    scoreDetail: [{ type: Schema.Types.ObjectId, ref: 'ScoreDetail' }],
+    scores: [Score],
+    // scores: [{ type: Schema.Types.ObjectId, ref: 'Score' }],
     isActive: { type: Boolean, required: true, default: true }
   },
   { collection: 'Student' },

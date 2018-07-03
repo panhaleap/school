@@ -12,7 +12,7 @@ const getSkip = (page, limit) => {
   return skip;
 };
 
-//This one is correct
+// This one is correct
 // export const createScore = async (req, res) => {
 //   try {
 //     const { student, subject, score } = req.body;
@@ -28,9 +28,12 @@ const getSkip = (page, limit) => {
 
 export const createScore = async (req, res) => {
   try {
-    const { student, subject, score } = req.body;
-    console.log(req.query.score);
-    return res.status(200).json(score);
+    let { score } = req.query;
+   // console.log(score.student);
+   //const score = {student: '5b39d24bdebf1727dce75d97'};
+   console.log(req.query);
+    //score = new RegExp(`${score.trim()}`);
+    return res.status(200).json(req.query);
   } catch (error) {
     console.log(error);
     failed(res, error, 400);
