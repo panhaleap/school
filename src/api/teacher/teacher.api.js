@@ -1,5 +1,5 @@
 import { failed, succeed } from '../../common/response';
-import { Student } from '../../models/student';
+import { Student, Teacher } from '../../models/teacher';
 
 const condiSearchByName = (filterByName) => {
     let wordSplit = { ...filterByName }.name.split(" ", 2);
@@ -28,42 +28,40 @@ const getSkip = (page, limit) => {
     return skip;
 };
 
-export const createStudent = async (req, res) => {
+export const createTeacher = async (req, res) => {
     try {
-        const { firstName, lastName, age, gender, scoreDetail } = req.body;
-        const student = new Student({ firstName, lastName, age, gender, scoreDetail });
-        const result = await student.save();
+        const { firstName, lastName, gender } = req.body;
+        const teacher = new Teacher({ firstName, lastName, gender });
+        const result = await teacher.save();
         if (result) succeed(res, result, 200);
-        else failed(res, 'Couldn\'t create student', 500);
+        else failed(res, 'Couldn\'t create teacher', 500);
     } catch (error) {
         console.log(error);
         failed(res, error, 400);
     }
 };
 
-export const getStudentList = async (req, res) => {
+export const getTeacherList = async (req, res) => {
     try {
         let { limit = 10, page = 1, isActive, gender, name } = req.query;
-        console.log(name);
         limit = getLimit(limit);
         const skip = getSkip(page, limit);
 
         const filterByActive = isActive ? { isActive } : { isActive: true };
         const filterByGender = gender ? { gender: { $in: gender } } : { gender: { $in: ["male", "female"] } };
-        console.log(filterByGender);
         const filterByName = name ? { name } : {};
         const conditionByName = name ? condiSearchByName(filterByName) : {};
 
         const condition = { ...filterByActive, ...filterByGender };
 
-        const [students, total] = await Promise.all([
-            Student.find(conditionByName).find(condition)
+        const [teachers, total] = await Promise.all([
+            Teacher.find(conditionByName).find(condition)
                 .skip(skip)
                 .limit(limit),
-            Student.count(conditionByName).count(condition)
+            Teacher.count(conditionByName).count(condition)
         ]);
 
-        if (students) succeed(res, { message: 'Success', 'Data': students, options: { limit, skip, total } }, 200);
+        if (teachers) succeed(res, { message: 'Success', 'Data': teachers, options: { limit, skip, total } }, 200);
         else failed(res, 'Not Found', 404);
     } catch (error) {
         console.log(error);
@@ -71,11 +69,11 @@ export const getStudentList = async (req, res) => {
     }
 };
 
-export const getStudentById = async (req, res) => {
+export const getTeacherById = async (req, res) => {
     try {
         const { id } = req.params;
-        const student = await Student.findOne({ _id: id, isActive: true });
-        if (student) succeed(res, { message: 'Success', 'Data': student }, 200);
+        const teacher = await Teacher.findOne({ _id: id, isActive: true });
+        if (teacher) succeed(res, { message: 'Success', 'Data': teacher }, 200);
         else failed(res, 'Not Found', 404);
     } catch (error) {
         console.log(error);
@@ -83,12 +81,12 @@ export const getStudentById = async (req, res) => {
     }
 };
 
-export const updateStudentById = async (req, res) => {
+export const updateTeacherById = async (req, res) => {
     try {
         const data = req.body;
         const { id } = req.params;
-        const student = await Student.findOneAndUpdate({ _id: id, isActive: true },{ $set: data });
-        if(student) succeed(res, {message: 'Updated Sucess', 'Data': student}, 200);
+        const teacher = await Teacher.findOneAndUpdate({ _id: id, isActive: true },{ $set: data });
+        if(teacher) succeed(res, {message: 'Updated Sucess', 'Data': teacher}, 200);
         else failed(res, {message: 'Student not found'}, 404);
     } catch (error) {
         console.log(error);
@@ -96,11 +94,11 @@ export const updateStudentById = async (req, res) => {
     }
 };
 
-export const deleteStudentById = async (req, res) => {
+export const deleteTeacherById = async (req, res) => {
     try {
         const { id } = req.params;
-        const student = await Student.findOneAndUpdate({ _id: id, isActive: true },{ $set: {isActive: false} });
-        if(student) succeed(res, {message: 'Deleted Sucess'}, 200);
+        const teacher = await Teacher.findOneAndUpdate({ _id: id, isActive: true },{ $set: {isActive: false} });
+        if(teacher) succeed(res, {message: 'Deleted Sucess'}, 200);
         else failed(res, {message: 'Student not found'}, 404);
     } catch (error) {
         console.log(error);

@@ -3,13 +3,13 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.deleteStudentById = exports.updateStudentById = exports.getStudentById = exports.getStudentList = exports.createStudent = undefined;
+exports.deleteTeacherById = exports.updateTeacherById = exports.getTeacherById = exports.getTeacherList = exports.createTeacher = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _response = require('../../common/response');
 
-var _student = require('../../models/student');
+var _teacher = require('../../models/teacher');
 
 const condiSearchByName = filterByName => {
     let wordSplit = _extends({}, filterByName).name.split(" ", 2);
@@ -37,73 +37,71 @@ const getSkip = (page, limit) => {
     return skip;
 };
 
-const createStudent = exports.createStudent = async (req, res) => {
+const createTeacher = exports.createTeacher = async (req, res) => {
     try {
-        const { firstName, lastName, age, gender, scoreDetail } = req.body;
-        const student = new _student.Student({ firstName, lastName, age, gender, scoreDetail });
-        const result = await student.save();
-        if (result) (0, _response.succeed)(res, result, 200);else (0, _response.failed)(res, 'Couldn\'t create student', 500);
+        const { firstName, lastName, gender } = req.body;
+        const teacher = new _teacher.Teacher({ firstName, lastName, gender });
+        const result = await teacher.save();
+        if (result) (0, _response.succeed)(res, result, 200);else (0, _response.failed)(res, 'Couldn\'t create teacher', 500);
     } catch (error) {
         console.log(error);
         (0, _response.failed)(res, error, 400);
     }
 };
 
-const getStudentList = exports.getStudentList = async (req, res) => {
+const getTeacherList = exports.getTeacherList = async (req, res) => {
     try {
         let { limit = 10, page = 1, isActive, gender, name } = req.query;
-        console.log(name);
         limit = getLimit(limit);
         const skip = getSkip(page, limit);
 
         const filterByActive = isActive ? { isActive } : { isActive: true };
         const filterByGender = gender ? { gender: { $in: gender } } : { gender: { $in: ["male", "female"] } };
-        console.log(filterByGender);
         const filterByName = name ? { name } : {};
         const conditionByName = name ? condiSearchByName(filterByName) : {};
 
         const condition = _extends({}, filterByActive, filterByGender);
 
-        const [students, total] = await Promise.all([_student.Student.find(conditionByName).find(condition).skip(skip).limit(limit), _student.Student.count(conditionByName).count(condition)]);
+        const [teachers, total] = await Promise.all([_teacher.Teacher.find(conditionByName).find(condition).skip(skip).limit(limit), _teacher.Teacher.count(conditionByName).count(condition)]);
 
-        if (students) (0, _response.succeed)(res, { message: 'Success', 'Data': students, options: { limit, skip, total } }, 200);else (0, _response.failed)(res, 'Not Found', 404);
+        if (teachers) (0, _response.succeed)(res, { message: 'Success', 'Data': teachers, options: { limit, skip, total } }, 200);else (0, _response.failed)(res, 'Not Found', 404);
     } catch (error) {
         console.log(error);
         (0, _response.failed)(res, error, 400);
     }
 };
 
-const getStudentById = exports.getStudentById = async (req, res) => {
+const getTeacherById = exports.getTeacherById = async (req, res) => {
     try {
         const { id } = req.params;
-        const student = await _student.Student.findOne({ _id: id, isActive: true });
-        if (student) (0, _response.succeed)(res, { message: 'Success', 'Data': student }, 200);else (0, _response.failed)(res, 'Not Found', 404);
+        const teacher = await _teacher.Teacher.findOne({ _id: id, isActive: true });
+        if (teacher) (0, _response.succeed)(res, { message: 'Success', 'Data': teacher }, 200);else (0, _response.failed)(res, 'Not Found', 404);
     } catch (error) {
         console.log(error);
         (0, _response.failed)(res, error, 400);
     }
 };
 
-const updateStudentById = exports.updateStudentById = async (req, res) => {
+const updateTeacherById = exports.updateTeacherById = async (req, res) => {
     try {
         const data = req.body;
         const { id } = req.params;
-        const student = await _student.Student.findOneAndUpdate({ _id: id, isActive: true }, { $set: data });
-        if (student) (0, _response.succeed)(res, { message: 'Updated Sucess', 'Data': student }, 200);else (0, _response.failed)(res, { message: 'Student not found' }, 404);
+        const teacher = await _teacher.Teacher.findOneAndUpdate({ _id: id, isActive: true }, { $set: data });
+        if (teacher) (0, _response.succeed)(res, { message: 'Updated Sucess', 'Data': teacher }, 200);else (0, _response.failed)(res, { message: 'Student not found' }, 404);
     } catch (error) {
         console.log(error);
         (0, _response.failed)(res, error, 400);
     }
 };
 
-const deleteStudentById = exports.deleteStudentById = async (req, res) => {
+const deleteTeacherById = exports.deleteTeacherById = async (req, res) => {
     try {
         const { id } = req.params;
-        const student = await _student.Student.findOneAndUpdate({ _id: id, isActive: true }, { $set: { isActive: false } });
-        if (student) (0, _response.succeed)(res, { message: 'Deleted Sucess' }, 200);else (0, _response.failed)(res, { message: 'Student not found' }, 404);
+        const teacher = await _teacher.Teacher.findOneAndUpdate({ _id: id, isActive: true }, { $set: { isActive: false } });
+        if (teacher) (0, _response.succeed)(res, { message: 'Deleted Sucess' }, 200);else (0, _response.failed)(res, { message: 'Student not found' }, 404);
     } catch (error) {
         console.log(error);
         (0, _response.failed)(res, error, 400);
     }
 };
-//# sourceMappingURL=student.api.js.map
+//# sourceMappingURL=teacher.api.js.map

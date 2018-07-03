@@ -6,10 +6,11 @@ import logger from 'morgan';
 import mongoose from 'mongoose';
 import { CONNECTION, ENDPOINT } from './common/constant';
 import studentRoute from './api/student/student.route';
-//import songRoute from './api/song/song.route';
+import subjectRoute from './api/subject/subject.route';
+import teacherRoute from './api/teacher/teacher.route';
 
 const app = expresses();
-const port = process.env.port || 8080;
+const port = process.env.port || 8181;
 
 mongoose.connect(CONNECTION);
 
@@ -24,6 +25,8 @@ app.all('/*', function(req, res, next) {
   });
 
   app.use(ENDPOINT, studentRoute);
+  app.use(ENDPOINT, subjectRoute);
+  app.use(ENDPOINT, teacherRoute);
 
   app.listen(port, ()=>{
     console.log('Hello ^^');

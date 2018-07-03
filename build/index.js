@@ -22,12 +22,18 @@ var _student = require('./api/student/student.route');
 
 var _student2 = _interopRequireDefault(_student);
 
+var _subject = require('./api/subject/subject.route');
+
+var _subject2 = _interopRequireDefault(_subject);
+
+var _teacher = require('./api/teacher/teacher.route');
+
+var _teacher2 = _interopRequireDefault(_teacher);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-//import songRoute from './api/song/song.route';
-
 const app = (0, _express2.default)();
-const port = process.env.port || 8080;
+const port = process.env.port || 8181;
 
 _mongoose2.default.connect(_constant.CONNECTION);
 
@@ -42,6 +48,8 @@ app.all('/*', function (req, res, next) {
 });
 
 app.use(_constant.ENDPOINT, _student2.default);
+app.use(_constant.ENDPOINT, _subject2.default);
+app.use(_constant.ENDPOINT, _teacher2.default);
 
 app.listen(port, () => {
   console.log('Hello ^^');

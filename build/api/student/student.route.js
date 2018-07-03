@@ -18,6 +18,8 @@ studentRoute.post(endpoint, _student2.createStudent);
 // studentRoute.get(endpoint, checkQueryStudent, getStudentList);
 studentRoute.get(endpoint, _student2.getStudentList);
 studentRoute.get(`${endpoint}:id`, _student2.getStudentById);
+studentRoute.put(`${endpoint}:id`, _student2.updateStudentById);
+studentRoute.delete(`${endpoint}:id`, _student2.deleteStudentById);
 
 exports.default = studentRoute;
 //# sourceMappingURL=student.route.js.map
