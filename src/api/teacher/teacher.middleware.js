@@ -12,11 +12,11 @@ import { errorValidation } from '../../common/response';
 // }).with('firstName', 'lastName');
 
 const subjectQuerySchema = Joi.object().keys({
-    limit: Joi.number(),
-    page: Joi.number()
+  limit: Joi.number(),
+  page: Joi.number()
 });
 
-// export const checkCreatedSubject = (req, res, next) => {    
+// export const checkCreatedSubject = (req, res, next) => {
 //     const { error } = Joi.valid(req.body, studentCreatedSchema);
 //     if (error === null) {next();}
 //     else {

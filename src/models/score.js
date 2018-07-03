@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-const scoreDetailSchema = Schema(
+const scoreSchema = Schema(
   {
     student: { type: Schema.Types.ObjectId, ref: 'Student' },
     subject: { type: Schema.Types.ObjectId, ref: 'Subject' },
@@ -9,4 +9,4 @@ const scoreDetailSchema = Schema(
   { collection: 'Score' },
   { timestamps: true }
 );
-export const ScoreDetail = mongoose.model('Score', scoreDetailSchema);
+export const Score = mongoose.model('Score', scoreSchema);

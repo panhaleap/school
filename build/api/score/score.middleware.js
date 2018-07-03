@@ -36,4 +36,4 @@ const subjectQuerySchema = _joi2.default.object().keys({
 //     if (error === null) next();
 //     else errorValidation(res, { 'error': error.name, 'message': error.message }, 422);
 // };
-//# sourceMappingURL=teacher.middleware.js.map
+//# sourceMappingURL=score.middleware.js.map

@@ -30,6 +30,10 @@ var _teacher = require('./api/teacher/teacher.route');
 
 var _teacher2 = _interopRequireDefault(_teacher);
 
+var _score = require('./api/score/score.route');
+
+var _score2 = _interopRequireDefault(_score);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const app = (0, _express2.default)();
@@ -50,6 +54,7 @@ app.all('/*', function (req, res, next) {
 app.use(_constant.ENDPOINT, _student2.default);
 app.use(_constant.ENDPOINT, _subject2.default);
 app.use(_constant.ENDPOINT, _teacher2.default);
+app.use(_constant.ENDPOINT, _score2.default);
 
 app.listen(port, () => {
   console.log('Hello ^^');

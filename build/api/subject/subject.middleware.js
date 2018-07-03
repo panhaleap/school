@@ -19,11 +19,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // }).with('firstName', 'lastName');
 
 const subjectQuerySchema = _joi2.default.object().keys({
-    limit: _joi2.default.number(),
-    page: _joi2.default.number()
+  limit: _joi2.default.number(),
+  page: _joi2.default.number()
 });
 
-// export const checkCreatedSubject = (req, res, next) => {    
+// export const checkCreatedSubject = (req, res, next) => {
 //     const { error } = Joi.valid(req.body, studentCreatedSchema);
 //     if (error === null) {next();}
 //     else {

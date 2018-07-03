@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { checkCreatedStudent, checkQueryStudent } from './student.middleware';
-import { getStudentList, createStudent, getStudentById, updateStudentById, deleteStudentById } from './student.api'
+import { getStudentList, createStudent, getStudentById, updateStudentById, deleteStudentById } from './student.api';
 
 const endpoint = '/students/';
 const studentRoute = Router();
