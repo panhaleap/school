@@ -22,12 +22,25 @@ const getSkip = (page, limit) => {
   return skip;
 };
 
+//This one is correct
+// export const createScore = async (req, res) => {
+//   try {
+//     const { student, subject, score } = req.body;
+//     const scoreModel = new Score({ student, subject, score });
+//     const result = await scoreModel.save();
+//     if (result) succeed(res, { message: 'Created Success', Data: result }, 200);
+//     else failed(res, "Couldn't create subject", 500);
+//   } catch (error) {
+//     console.log(error);
+//     failed(res, error, 400);
+//   }
+// };
+
 const createScore = exports.createScore = async (req, res) => {
   try {
     const { student, subject, score } = req.body;
-    const scoreModel = new _score.Score({ student, subject, score });
-    const result = await scoreModel.save();
-    if (result) (0, _response.succeed)(res, { message: 'Created Success', Data: result }, 200);else (0, _response.failed)(res, "Couldn't create subject", 500);
+    console.log(req.query.score);
+    return res.status(200).json(score);
   } catch (error) {
     console.log(error);
     (0, _response.failed)(res, error, 400);
