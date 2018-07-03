@@ -1,6 +1,6 @@
 import { failed, succeed } from '../../common/response';
-import { Student } from '../../models/student';
 import { Score } from '../../models/score';
+import { Student } from '../../models/student';
 
 const condiSearchByName = filterByName => {
   let wordSplit = { ...filterByName }.name.split(' ', 2);
@@ -116,23 +116,23 @@ export const createScoresForStudentById = async (req, res) => {
   try {
     const { id } = req.params;
     const { scores } = req.body;
-    //     if (result) succeed(res, { message: 'Created Success', Data: result }, 200);
-    //     else failed(res, "Couldn't create subject", 500);
-     
-    // const student = await Student.findOneAndUpdate({ _id: id, isActive: true }, { $set: { scores } });
 
     const student = await Student.where({ _id: id, isActive: true }).findOne();
-    student.scores.push(scores);
-    student.save();
 
-    if (student) {
-      succeed(res, { message: 'Created Scores', data: student });
-    } else {
-      failed(res,  "Erorr while try to create score without any docs :D");
-    }
+    await Promise.all(
+      scores.map(async each => {
+        const { subject, score } = each;
+        const scoreModel = new Score({ student: student._id, subject, score });
+        return scoreModel.save();
+      })
+    )
+      .then(data => {
+        succeed(res, { message: 'Created Scores', data }, 201);
+      })
+      .catch(error => {
+        failed(res, error, 500);
+      });
   } catch (error) {
-    console.log(error);
     failed(res, error, 500);
   }
- };
- 
+};

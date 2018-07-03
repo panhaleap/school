@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
+
 const subjectSchema = Schema(
   {
     name: String,
@@ -8,4 +9,5 @@ const subjectSchema = Schema(
   { collection: 'Subject' },
   { timestamps: true }
 );
+
 export const Subject = mongoose.model('Subject', subjectSchema);

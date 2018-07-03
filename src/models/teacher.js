@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
+
 const teacherSchema = Schema(
   {
     firstName: String,
@@ -9,4 +10,5 @@ const teacherSchema = Schema(
   { collection: 'Teacher' },
   { timestamps: true }
 );
+
 export const Teacher = mongoose.model('Teacher', teacherSchema);

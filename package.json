@@ -5,7 +5,7 @@
   "scripts": {
     "prestart": "babel src --out-dir build --source-maps",
     "dev": "babel-node src/index --ext js",
-    "start": "nodemon --exec npm run babel-node -- src/index.js",
+    "start": "nodemon --exec babel-node -- src/index.js",
     "debug": "DEBUG=express:* & babel-node src/index --ext js"
   },
   "repository": {
@@ -27,7 +27,7 @@
     "debug": "^3.1.0",
     "express": "^4.16.3",
     "joi": "^13.4.0",
-    "mongoose": "^5.1.7",
+    "mongoose": "^5.2.0",
     "morgan": "^1.9.0"
   },
   "babel": {
